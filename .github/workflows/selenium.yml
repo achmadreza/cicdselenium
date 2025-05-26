@@ -43,7 +43,8 @@ jobs:
       run: mvn clean test
 
     - name: 📤 Upload Cucumber Report
+      if: always()  # tetap dijalankan meski test gagal
       uses: actions/upload-artifact@v2
       with:
         name: cucumber-report
-        path: target/cucumber-reports/
+        path: target/cucumber-reports
