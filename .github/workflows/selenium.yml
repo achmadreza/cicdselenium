@@ -42,8 +42,8 @@ jobs:
     - name: 📦 Run Maven Tests
       run: mvn clean test
 
-    - name: 📤 Upload Cucumber HTML Report
-      uses: actions/upload-artifact@v3
+    - name: 📤 Upload Cucumber Report
+      uses: actions/upload-artifact@v2
       with:
         name: cucumber-report
         path: target/cucumber-reports/
