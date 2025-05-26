@@ -46,7 +46,7 @@ jobs:
 
     - name: 📤 Upload Cucumber Report
       if: always()  # tetap dijalankan meski test gagal
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: cucumber-report
         path: target/cucumber-reports
