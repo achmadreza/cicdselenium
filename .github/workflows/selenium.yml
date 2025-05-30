@@ -28,15 +28,19 @@ jobs:
     - name: 🧰 Install jq
       run: sudo apt-get install -y jq
 
+
     - name: 🚗 Install matching ChromeDriver
       run: |
         CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+\.\d+')
         echo "Installed Chrome version: $CHROME_VERSION"
-        DRIVER_URL=$(curl -s https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json | jq -r --arg ver "$CHROME_VERSION" '.channels.Stable.downloads.chromedriver[] | select(.platform == "linux64") | .url' | head -n1)
+        DRIVER_VERSION=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json" | jq -r --arg CHROME_VERSION "$CHROME_VERSION" '.channels.Stable.version')
+        DRIVER_URL=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json" | jq -r --arg VERSION "$DRIVER_VERSION" '.channels.Stable.downloads.chromedriver[] | select(.platform == "linux64") | .url')
         wget -O chromedriver.zip "$DRIVER_URL"
         unzip chromedriver.zip
         sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
-        chmod +x /usr/local/bin/chromedriver
+        sudo chmod +x /usr/local/bin/chromedriver
+        which chromedriver
+        chromedriver --version
 
     - name: 📦 Run Maven Tests
       run: mvn clean test

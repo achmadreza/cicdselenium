@@ -1,2 +1,3 @@
+stepdefinitions\LoginSteps.class
 pages\LoginPage.class
 runner\TestRunner.class
