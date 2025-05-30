@@ -12,12 +12,19 @@ public class LoginSteps {
 
     @Given("User is on the login page")
     public void user_is_on_the_login_page() {
-        System.setProperty("webdriver.chrome.driver", "E:\\webdriver\\chromedriver.exe");
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("win")) {
+            System.setProperty("webdriver.chrome.driver", "E:\\webdriver\\chromedriver.exe");
+        } else {
+            System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+        }
+    
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://katalon-demo-cura.herokuapp.com/");
         loginPage = new LoginPage(driver);
     }
+    
 
     @When("User click makeAppointment")
     public void user_click_makeAppointment() {
