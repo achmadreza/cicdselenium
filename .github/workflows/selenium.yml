@@ -1,21 +1,20 @@
 name: Run Selenium Cucumber Tests
-
-on:
+'on':
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
-
+    branches:
+      - main
 jobs:
   run-tests:
     runs-on: ubuntu-latest
-
     steps:
     - name: 🛎️ Checkout source code
       uses: actions/checkout@v3
 
     - name: ☕ Set up Java 17
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
         java-version: '17'
@@ -33,20 +32,17 @@ jobs:
       run: |
         CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+\.\d+')
         echo "Installed Chrome version: $CHROME_VERSION"
-        DRIVER_VERSION=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json" | jq -r --arg CHROME_VERSION "$CHROME_VERSION" '.channels.Stable.version')
-        DRIVER_URL=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json" | jq -r --arg VERSION "$DRIVER_VERSION" '.channels.Stable.downloads.chromedriver[] | select(.platform == "linux64") | .url')
+        DRIVER_URL=$(curl -s https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json | jq -r --arg ver "$CHROME_VERSION" '.channels.Stable.downloads.chromedriver[] | select(.platform == "linux64") | .url' | head -n1)
         wget -O chromedriver.zip "$DRIVER_URL"
         unzip chromedriver.zip
         sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
-        sudo chmod +x /usr/local/bin/chromedriver
-        which chromedriver
-        chromedriver --version
+        chmod +x /usr/local/bin/chromedriver
 
     - name: 📦 Run Maven Tests
       run: mvn clean test
 
     - name: 📤 Upload Cucumber Report
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v2
       with:
         name: cucumber-report
         path: target/cucumber-reports/
