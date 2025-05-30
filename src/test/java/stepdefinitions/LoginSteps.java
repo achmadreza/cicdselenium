@@ -2,6 +2,8 @@ package stepdefinitions;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
 import io.cucumber.java.en.*;
 import pages.LoginPage;
 
@@ -11,19 +13,26 @@ public class LoginSteps {
     LoginPage loginPage;
 
     @Given("User is on the login page")
-    public void user_is_on_the_login_page() {
-        String os = System.getProperty("os.name").toLowerCase();
-        if (os.contains("win")) {
-            System.setProperty("webdriver.chrome.driver", "E:\\webdriver\\chromedriver.exe");
-        } else {
-            System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-        }
-    
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("https://katalon-demo-cura.herokuapp.com/");
-        loginPage = new LoginPage(driver);
+ public void user_is_on_the_login_page() {
+    String os = System.getProperty("os.name").toLowerCase();
+    if (os.contains("win")) {
+        System.setProperty("webdriver.chrome.driver", "E:\\webdriver\\chromedriver.exe");
+    } else {
+        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
     }
+
+    ChromeOptions options = new ChromeOptions();
+    options.addArguments("--no-sandbox");
+    options.addArguments("--headless=new");
+    options.addArguments("--disable-dev-shm-usage");
+    options.addArguments("--remote-allow-origins=*");
+
+    driver = new ChromeDriver(options);
+    driver.manage().window().maximize();
+    driver.get("https://katalon-demo-cura.herokuapp.com/");
+    loginPage = new LoginPage(driver);
+}
+
     
 
     @When("User click makeAppointment")
