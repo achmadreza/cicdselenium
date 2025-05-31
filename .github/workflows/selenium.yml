@@ -1,12 +1,8 @@
 name: Run Selenium Cucumber Tests
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
   schedule:
-    - cron: '48 13 * * *'  # Run every day at 20:45 UTC
+    - cron: '58 13 * * *'  # Run every day at 20:45 UTC
 
 jobs:
   run-tests:
