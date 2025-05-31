@@ -1,7 +1,7 @@
 name: Run Selenium Cucumber Tests
 on:
   schedule:
-    - cron: '30 21 * * *' 
+    - cron: '37 14 * * *' 
 jobs:
   run-tests:
     runs-on: ubuntu-latest
