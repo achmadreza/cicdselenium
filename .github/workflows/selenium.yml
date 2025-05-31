@@ -1,13 +1,7 @@
 name: Run Selenium Cucumber Tests
-'on':
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+on:
   schedule:
-    - cron: '21 14 * * *'
+    - cron: '30 21 * * *' 
 jobs:
   run-tests:
     runs-on: ubuntu-latest
