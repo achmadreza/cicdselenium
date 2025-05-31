@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 
 public class LoginPage {
     WebDriver driver;
-
+//test ini
     public LoginPage(WebDriver driver) {
         this.driver = driver;
     }
