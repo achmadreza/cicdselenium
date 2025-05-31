@@ -1,14 +1,17 @@
 name: Run Selenium Cucumber Tests
-'on':
+
+on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
+  schedule:
+    - cron: '48 13 * * *'  # Run every day at 20:45 UTC
+
 jobs:
   run-tests:
     runs-on: ubuntu-latest
+
     steps:
     - name: 🛎️ Checkout source code
       uses: actions/checkout@v3
@@ -27,7 +30,6 @@ jobs:
 
     - name: 🧰 Install jq
       run: sudo apt-get install -y jq
-
 
     - name: 🚗 Install matching ChromeDriver
       run: |
