@@ -44,11 +44,15 @@ jobs:
         which chromedriver
         chromedriver --version
 
-    - name: 📦 Run Maven Tests
-      run: mvn clean verify
+    - name: 🧪 Run Cucumber Tests and generate JSON
+      run: mvn clean test
+
+    - name: 🧾 Generate Cucumber HTML Report
+      run: mvn net.masterthought:maven-cucumber-reporting:generate
 
     - name: 📤 Upload Cucumber Report
       uses: actions/upload-artifact@v4
       with:
         name: cucumber-report
-        path: target/cucumber-reports/*.html
+        path: target/cucumber-html-reports/
+
