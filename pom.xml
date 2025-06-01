@@ -11,6 +11,7 @@
   <name>CucumberSelenium</name>
 
   <dependencies>
+    <!-- JUnit -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -18,24 +19,28 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- Selenium -->
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
       <version>4.12.0</version>
     </dependency>
 
+    <!-- Cucumber Core -->
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>cucumber-java</artifactId>
       <version>7.14.0</version>
     </dependency>
 
+    <!-- Cucumber JUnit Integration -->
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>cucumber-junit</artifactId>
       <version>7.14.0</version>
     </dependency>
 
+    <!-- Optional: Reporting plugin (used via Maven plugin section) -->
     <dependency>
       <groupId>net.masterthought</groupId>
       <artifactId>cucumber-reporting</artifactId>
@@ -44,30 +49,30 @@
   </dependencies>
 
   <build>
-  <plugins>
-    <plugin>
-      <groupId>net.masterthought</groupId>
-      <artifactId>maven-cucumber-reporting</artifactId>
-      <version>5.7.5</version>
-      <executions>
-        <execution>
-          <id>generate-cucumber-reports</id>
-          <phase>verify</phase>
-          <goals>
-            <goal>generate</goal>
-          </goals>
-          <configuration>
-            <projectName>Cucumber Selenium</projectName>
-            <jsonFiles>
-              <param>target/cucumber-reports/Cucumber.json</param>
-            </jsonFiles>
-            <outputDirectory>target/cucumber-html-reports</outputDirectory>
-          </configuration>
-        </execution>
-      </executions>
-    </plugin>
-  </plugins>
-</build>
-
+    <plugins>
+      <!-- Plugin for generating Cucumber HTML reports -->
+      <plugin>
+        <groupId>net.masterthought</groupId>
+        <artifactId>maven-cucumber-reporting</artifactId>
+        <version>5.7.5</version>
+        <executions>
+          <execution>
+            <id>generate-cucumber-reports</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <projectName>Cucumber Selenium</projectName>
+              <jsonFiles>
+                <jsonFile>target/cucumber-reports/Cucumber.json</jsonFile>
+              </jsonFiles>
+              <outputDirectory>target/cucumber-html-reports</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>
