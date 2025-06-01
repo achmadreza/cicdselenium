@@ -44,27 +44,30 @@
   </dependencies>
 
   <build>
+  <plugins>
     <plugin>
-  <groupId>net.masterthought</groupId>
-  <artifactId>maven-cucumber-reporting</artifactId>
-  <version>5.7.5</version>
-  <executions>
-    <execution>
-      <id>generate-cucumber-reports</id>
-      <phase>verify</phase>
-      <goals>
-        <goal>generate</goal>
-      </goals>
-      <configuration>
-        <projectName>Cucumber Selenium Report</projectName>
-        <outputDirectory>${project.build.directory}/cucumber-reports</outputDirectory>
-        <jsonFiles>
-          <param>${project.build.directory}/cucumber.json</param>
-        </jsonFiles>
-      </configuration>
-    </execution>
-  </executions>
-</plugin>
-  </build>
+      <groupId>net.masterthought</groupId>
+      <artifactId>maven-cucumber-reporting</artifactId>
+      <version>5.7.5</version>
+      <executions>
+        <execution>
+          <id>generate-cucumber-reports</id>
+          <phase>verify</phase>
+          <goals>
+            <goal>generate</goal>
+          </goals>
+          <configuration>
+            <projectName>Cucumber Selenium</projectName>
+            <jsonFiles>
+              <param>target/cucumber-reports/Cucumber.json</param>
+            </jsonFiles>
+            <outputDirectory>target/cucumber-html-reports</outputDirectory>
+          </configuration>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+</build>
+
 
 </project>
